@@ -14,7 +14,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 
 
-class GamePanel extends BasicGame {
+class GamePanel extends BasicGame  {
 
     
     TiledMap map;
