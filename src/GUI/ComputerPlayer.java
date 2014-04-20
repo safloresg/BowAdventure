@@ -13,7 +13,7 @@ public class ComputerPlayer extends Player{
 	}
 
 	@Override
-    public void makeMovement(GameContainer container) {}
+    public void makeMovement() {}
 
     
 

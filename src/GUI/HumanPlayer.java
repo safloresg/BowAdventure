@@ -10,9 +10,10 @@ import org.newdawn.slick.command.InputProviderListener;
 
 public class HumanPlayer extends Player implements InputProviderListener{
 
+	Arrow arrow ;
     public HumanPlayer(Image img) throws SlickException {
 		this.img = img;
-		
+		arrow = new Arrow();
 		// TODO Auto-generated constructor stub
 	}
     public HumanPlayer() {
@@ -20,7 +21,8 @@ public class HumanPlayer extends Player implements InputProviderListener{
     }
 
 	@Override
-    public void makeMovement(GameContainer container){
+    public void makeMovement(){
+		arrow.draw(200, 200);
     }
 	@Override
 	public void controlPressed(Command command) {
@@ -28,13 +30,15 @@ public class HumanPlayer extends Player implements InputProviderListener{
 		if (((BasicCommand)command).getName().equals("MoveUp") && img.getRotation() > -90){
 			img.rotate(-10);
 			
-			
-			
-			
 		}else if (((BasicCommand)command).getName().equals("MoveDown") && img.getRotation() < 0){
 			img.rotate(10);
 			
-		}
+		}else if (((BasicCommand)command).getName().equals("ThrowArrow")&& !arrow.isArrowThrowed()){
+			makeMovement();
+			System.out.print(command);
+			
+			
+		} 
 
 	}
 	@Override
