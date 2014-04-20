@@ -9,6 +9,10 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.command.BasicCommand;
+import org.newdawn.slick.command.Command;
+import org.newdawn.slick.command.InputProvider;
+import org.newdawn.slick.command.KeyControl;
 import org.newdawn.slick.tests.InputProviderTest;
 import org.newdawn.slick.tiled.TiledMap;
 
@@ -16,16 +20,23 @@ import org.newdawn.slick.tiled.TiledMap;
 
 class GamePanel extends BasicGame  {
 
-    
-    TiledMap map;
-    private static final int player1X = 1,player1Y=50;
-    private static final int player2X = player1X*360 , player2Y = player1Y; 
-    HumanPlayer player1;
-    Player player2;
-    Image arrow;
+    /*Mapa del juego*/
+    private TiledMap map;
+    /*Coordenadas del jugador 1*/
+    /*coordenas jugador 2*/
+    /*jugador 2*/
+    private HumanPlayer player1;
+    /*Jugador 2*/
+    private Player player2;
+    /*Coordenadas der arco*/
     private int arrowX= 0, arrowY= 100;
     private boolean iniciarArrow= false;
-    
+    private InputProvider provider;
+    /*Lista de comandos*/
+    /*Mover arco hacia arriba*/
+    private Command moveUp = new BasicCommand("MoveUp");
+    /*Mover arco hacia abajo*/
+    private Command moveDown = new BasicCommand("MoveDown");
     
     public static void main (String args[]){
     	try {
@@ -36,7 +47,6 @@ class GamePanel extends BasicGame  {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-   InputProviderTest t;
     	
     }
     
@@ -47,41 +57,22 @@ class GamePanel extends BasicGame  {
     public void init(GameContainer container) throws SlickException {
 	player1 = new HumanPlayer(new Image("Animaciones/Bowman/arco.png",true));
 	player2 = new ComputerPlayer(player1.getImg().getFlippedCopy(true,false));
-    arrow = new Image("Animaciones/Bowman/flecha.png");
+    provider = new InputProvider(container.getInput());
+	provider.addListener(player1);
+	provider.bindCommand(new KeyControl(Input.KEY_UP), moveUp);
+	provider.bindCommand(new KeyControl(Input.KEY_DOWN), moveDown );
     }
     
     public void update (GameContainer container,int delta)throws SlickException{
     	
-    	Input input = container.getInput();
-        
-    	if (input.isKeyPressed(input.KEY_UP) || input.isKeyPressed(input.KEY_DOWN) || input.isKeyPressed(input.KEY_SPACE)){
-    		player1.makeMovement(container);
-    	}
-    		
-   /* 	if(input.isKeyPressed(input.KEY_UP) && (player1.getImg().getRotation() > -90) ){	
-    		player1.getImg().rotate(-10);
-    	}else
-    	if (input.isKeyPressed(input.KEY_DOWN) && (player1.getImg().getRotation() < 0)){
-    		player1.getImg().rotate(10);
-    		
-    	}else if (input.isKeyPressed(input.KEY_SPACE)){
-    		
-    		iniciarArrow = true;
-    	}*/
+  
     }
 
     public void render(GameContainer container, Graphics g)
 	throws SlickException {
-	// TODO Auto-generated method stub
-    	//player1.getImg().draw(player1X,player1Y);
-    	player1.draw(player1X, player1Y);
-    	player2.draw(player2X, player2Y);
-    	//arrow.draw(300, 200);
-    	if (iniciarArrow){
-    	arrow.draw(arrowX++,arrowY);
-    	}
-    	
-    	g.drawString(""+player1.getImg().getRotation(),200, 50);
+    	player1.draw(50, 50);
+    	g.drawString(""+player1.getImg().getRotation(), 100, 20);
+	
     }
 
 }
