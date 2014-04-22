@@ -9,11 +9,10 @@ public class ComputerPlayer extends Player{
 
     public ComputerPlayer(Image img) throws SlickException {
 		this.img = img;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-    public void makeMovement() {}
+    public void makeMovement(int delta) {}
 
     
 

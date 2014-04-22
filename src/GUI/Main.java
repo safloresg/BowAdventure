@@ -16,7 +16,6 @@ public class Main extends StateBasedGame {
 			app.setDisplayMode(640, 480, false);
 			app.start();
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -25,12 +24,10 @@ public class Main extends StateBasedGame {
 
 	public Main(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void initStatesList(GameContainer arg0) throws SlickException {
-		// TODO Auto-generated method stub
 		addState(new Menu(Menu));
 		addState(new GamePanel(Game));
 		

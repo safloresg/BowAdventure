@@ -10,6 +10,7 @@ import org.newdawn.slick.command.InputProviderListener;
 
 public class HumanPlayer extends Player implements InputProviderListener{
 
+	int contador;
 	Arrow arrow ;
     public HumanPlayer(Image img) throws SlickException {
 		this.img = img;
@@ -18,11 +19,12 @@ public class HumanPlayer extends Player implements InputProviderListener{
 	}
     public HumanPlayer() {
     	
+    	
     }
 
 	@Override
-    public void makeMovement(){
-		arrow.draw(200, 200);
+    public void makeMovement(int delta){
+		arrow.draw(-1*img.getRotation(),delta,10f,310f);
     }
 	@Override
 	public void controlPressed(Command command) {
@@ -34,10 +36,8 @@ public class HumanPlayer extends Player implements InputProviderListener{
 			img.rotate(10);
 			
 		}else if (((BasicCommand)command).getName().equals("ThrowArrow")&& !arrow.isArrowThrowed()){
-			makeMovement();
 			System.out.print(command);
-			
-			
+		    arrow.isArrowThrowed= true;
 		} 
 
 	}

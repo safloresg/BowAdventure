@@ -51,6 +51,6 @@ public abstract class Player {
     	img.draw(x,y);    	
     }
 
-    public abstract void makeMovement();
+    public abstract void makeMovement(int delta);
     
 }

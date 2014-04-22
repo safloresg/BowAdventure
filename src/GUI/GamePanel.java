@@ -39,7 +39,7 @@ class GamePanel extends BasicGameState  {
     /*Lanzar flecha*/
     private Command throwArrow = new BasicCommand ("ThrowArrow");
     
-    
+    int delta;
     
     public GamePanel(int id){
     	this.id = id;
@@ -57,34 +57,31 @@ class GamePanel extends BasicGameState  {
 		provider.bindCommand(new KeyControl(Input.KEY_UP), moveUp);
 		provider.bindCommand(new KeyControl(Input.KEY_DOWN), moveDown );
 		provider.bindCommand(new KeyControl (Input.KEY_SPACE), throwArrow);
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		// TODO Auto-generated method stub
-		player1.draw(50, 50);
-		if (player1.arrow.isArrowThrowed()){
-			player1.makeMovement();
-			
-		}
+		player1.draw(10, 310);
 		
     	g.drawString(""+player1.getImg().getRotation(), 100, 20);
+    	if (player1.arrow.isArrowThrowed()){
 		
+    		player1.makeMovement(delta);
+		}
 	}
 
 	@Override
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
+	public void update(GameContainer arg0, StateBasedGame arg1, int delta)
 			throws SlickException {
-		// TODO Auto-generated method stub
+		this.delta = delta;
+		
 		
 	}
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return id;
 	}
 
