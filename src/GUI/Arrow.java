@@ -8,6 +8,11 @@ public class Arrow {
 	public boolean isArrowThrowed; //Variable que nos dice si se hay una flecha en movimiento o no
 	private float x=0,y=0;
 	private int contador = 0;
+	private float teta;
+	private float velocidad;
+	private float tiempoIni;
+//	private float tiempo;
+	
 	/*------------------------------------------------------------------*
 	 * 					CONSTANTES FISICA                                *
 	 * -----------------------------------------------------------------*/
@@ -20,45 +25,72 @@ public class Arrow {
 		img = new Image("Animaciones/Bowman/flecha.png");
 		isArrowThrowed = false;
 	}
-	public Arrow(Image img){
-		this.img = img;
-		
-	}
+	public Arrow(Image img){this.img = img;}
 	
-	public void setImg(Image img){
-		this.img = img;
-	}
+	public void setImg(Image img){this.img = img;}
 	
-	public Image getImg(){
-		
-		return this.img;
-	}
+	public Image getImg(){return this.img;}
 	
-	public void draw(double teta,double velocidad,float x,float y){
-		if (!isArrowThrowed){
-		this.x =x;
-		this.y = y;
-
+	public void draw(float teta,float velocidad,float x,float y){
+		isArrowThrowed = true;
+		if (this.x == 0 && this.y ==0){
+			
+			
+			this.x = x;
+			this.y = y;
+			this.velocidad = velocidad;
+			tiempoIni =System.currentTimeMillis();
+			this.teta =teta;
+			System.out.println("this.x"+this.x+"y"+this.y);
 		}
-		//System.out.println("this.x="+this.x+"this.y:"+this.y);
-		img.draw(this.x,this.y);
+		float vx = calcVx();
+		float vy = calcVy();
+		float tiempo = calcTiempoTrans();
+		System.out.println(tiempo);
 
-		this.x = (float)((x + (velocidad*Math.cos(Math.toRadians(teta))*contador)));
-		this.y = (float)( (y + ((velocidad*Math.sin(Math.toRadians(teta)))*contador)-(.5*GRAVEDAD*contador)));
-		if (this.y >480 || this.x > 500){
-			isArrowThrowed =false;
-			this.x = 0;this.y=0;
+		this.x = 10 *contador;
+		this.y = (float) (y+(-1*((Math.tan(Math.toRadians(this.teta))*this.x)-(GRAVEDAD/(2*Math.pow(this.velocidad,2)*Math.pow(Math.cos(Math.toRadians(this.teta)),2))*Math.pow(this.x, 2)))));
+		System.out.print("yCalculada:"+this.y);
+		img.draw(this.x,this.y);
+        contador++;
+		if (this.x > 500 || this.y >500){
+			isArrowThrowed = false;
+			this.x =0;
+			this.y =0;
 			contador =0;
 			
-		}else{
-		isArrowThrowed = true;}
-		contador++;
+		}
+}
+	
+	public void setX(float x){this.x = x;}
+	
+	public float getX(){return  x;}
+	
+	public void setY (float y){this.y = y;}
+	
+	public float getY (){return y;}
+	
+	public void setTeta (float teta) {this.teta = teta;}
+	
+	private float getTeta (){return teta;}
+	
+	private float calcVx(){
+		
+		return (float) (velocidad*Math.cos(Math.toRadians(teta))) ;
+	}
+	
+	private float calcTiempoTrans(){
+		/**Calcula el tiempo transcurrido desde que  se llamo a draw()**/
+		float tiempoActual = System.currentTimeMillis();
+		return 	 (tiempoActual - tiempoIni);
 		
 	}
 	
-	public boolean isArrowThrowed(){
-		return isArrowThrowed;
+	private float calcVy(){
 		
+		return  (float)((float)(velocidad*Math.sin(Math.toRadians(teta)))-(GRAVEDAD*calcTiempoTrans()));
 	}
+	
+	public boolean isArrowThrowed(){return isArrowThrowed;}
 
 }

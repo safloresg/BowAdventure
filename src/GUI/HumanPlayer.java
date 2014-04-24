@@ -24,6 +24,7 @@ public class HumanPlayer extends Player implements InputProviderListener{
 
 	@Override
     public void makeMovement(int delta){
+		
 		arrow.draw(-1*img.getRotation(),delta,10f,310f);
     }
 	@Override
@@ -37,7 +38,7 @@ public class HumanPlayer extends Player implements InputProviderListener{
 			
 		}else if (((BasicCommand)command).getName().equals("ThrowArrow")&& !arrow.isArrowThrowed()){
 			System.out.print(command);
-		    arrow.isArrowThrowed= true;
+			arrow.isArrowThrowed = true;
 		} 
 
 	}
