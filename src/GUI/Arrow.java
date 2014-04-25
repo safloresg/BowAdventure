@@ -12,13 +12,8 @@ public class Arrow {
 	private float velocidad;
 	private float tiempoIni;
 //	private float tiempo;
-	
-	/*------------------------------------------------------------------*
-	 * 					CONSTANTES FISICA                                *
-	 * -----------------------------------------------------------------*/
 	public static final double GRAVEDAD = 9.8;
 	
-	/*------------------------------------------------------------------*/
 	
 	public Arrow() throws SlickException{
 		/* Constructor */
@@ -27,9 +22,47 @@ public class Arrow {
 	}
 	public Arrow(Image img){this.img = img;}
 	
+	public Arrow(Image img,float teta, float velocidad, float x, float y){
+		this.y = y;
+		this.x =x;
+		this.teta = teta;
+		this.img = img;
+		
+	}
+	
+	public Arrow (float teta, float velocidad , float x, float y) throws SlickException{
+		img = new Image ("Animaciones/Bowman/flecha.png");
+		this.x = x;
+		this.y = y;
+		this.teta = teta;
+		this.velocidad = velocidad;
+		
+	}
+	
 	public void setImg(Image img){this.img = img;}
 	
 	public Image getImg(){return this.img;}
+	
+	public void draw (){
+		isArrowThrowed = true;
+		float vx = calcVx();
+		float vy = calcVy();
+		x = 10 *contador;
+		y = (float) (y+(-1*((Math.tan(Math.toRadians(teta))*x)-
+				(GRAVEDAD/(2*Math.pow(velocidad,2)*Math.pow(Math.cos(Math.toRadians(teta)),2))*
+						Math.pow(x, 2)))));
+		img.draw(x,y);
+		contador++;
+		
+		if (this.x > 500 || this.y >500){
+			isArrowThrowed = false;
+			x =0;
+			y =0;
+			contador =0;
+			
+		}
+		
+	}
 	
 	public void draw(float teta,float velocidad,float x,float y){
 		isArrowThrowed = true;
@@ -74,8 +107,12 @@ public class Arrow {
 	
 	private float getTeta (){return teta;}
 	
+	public void setVelocidad(float velocidad){this.velocidad = velocidad;}
+	
+	
+	
 	private float calcVx(){
-		
+		/*calcular el vector de velocidad en x*/
 		return (float) (velocidad*Math.cos(Math.toRadians(teta))) ;
 	}
 	
@@ -87,7 +124,7 @@ public class Arrow {
 	}
 	
 	private float calcVy(){
-		
+		/*Calcular el vector de velocidad en y*/
 		return  (float)((float)(velocidad*Math.sin(Math.toRadians(teta)))-(GRAVEDAD*calcTiempoTrans()));
 	}
 	

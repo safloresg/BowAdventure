@@ -49,8 +49,9 @@ public abstract class Player {
     }
     public void draw(int x, int y){
     	img.draw(x,y);    	
+    	
     }
-
-    public abstract void makeMovement(int delta);
+     
+    public abstract void makeMovement(float teta,float velocidad,int x , int y);
     
 }

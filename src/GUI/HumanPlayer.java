@@ -15,6 +15,7 @@ public class HumanPlayer extends Player implements InputProviderListener{
     public HumanPlayer(Image img) throws SlickException {
 		this.img = img;
 		arrow = new Arrow();
+		
 		// TODO Auto-generated constructor stub
 	}
     public HumanPlayer() {
@@ -23,9 +24,12 @@ public class HumanPlayer extends Player implements InputProviderListener{
     }
 
 	@Override
-    public void makeMovement(int delta){
-		
-		arrow.draw(-1*img.getRotation(),delta,10f,310f);
+    public void makeMovement(float teta, float velocidad, int x , int y){
+		arrow.setTeta(teta);
+		arrow.setVelocidad(velocidad);
+		arrow.setX(x);
+		arrow.setY(y);
+		arrow.draw();
     }
 	@Override
 	public void controlPressed(Command command) {
