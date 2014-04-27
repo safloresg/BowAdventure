@@ -52,6 +52,8 @@ public class Arrow {
 				(GRAVEDAD/(2*Math.pow(velocidad,2)*Math.pow(Math.cos(Math.toRadians(teta)),2))*
 						Math.pow(x, 2)))));
 		img.draw(x,y);
+		img.setRotation((float) Math.atan2(x,y));
+
 		contador++;
 		
 		if (this.x > 500 || this.y >500){

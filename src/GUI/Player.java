@@ -11,7 +11,7 @@ public abstract class Player {
 	protected int hitPoints;
 	protected int missPoints;
 	protected Image img= null;
-
+    protected int coordinateX , coordinateY;
    
     
     public String getPlayerName() {
@@ -48,10 +48,12 @@ public abstract class Player {
 	return this.img;
     }
     public void draw(int x, int y){
+    	coordinateX = x;
+    	coordinateY = y;
     	img.draw(x,y);    	
     	
     }
      
-    public abstract void makeMovement(float teta,float velocidad,int x , int y);
+    public abstract void makeMovement();
     
 }

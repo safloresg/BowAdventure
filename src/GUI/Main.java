@@ -14,6 +14,7 @@ public class Main extends StateBasedGame {
 		try {
 			AppGameContainer app = new AppGameContainer(new Main("BowAdventure"));
 			app.setDisplayMode(640, 480, false);
+		//    app.setFullscreen(true);
 			app.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -24,6 +25,7 @@ public class Main extends StateBasedGame {
 
 	public Main(String name) {
 		super(name);
+		
 	}
 
 	@Override

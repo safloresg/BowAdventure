@@ -12,7 +12,7 @@ public class ComputerPlayer extends Player{
 	}
 
 	@Override
-    public void makeMovement(float teta,float velocidad, int x, int y) {}
+    public void makeMovement() {}
 
     
 

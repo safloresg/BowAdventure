@@ -24,11 +24,12 @@ public class HumanPlayer extends Player implements InputProviderListener{
     }
 
 	@Override
-    public void makeMovement(float teta, float velocidad, int x , int y){
-		arrow.setTeta(teta);
+    public void makeMovement(){
+		float velocidad = 80;
+		arrow.setTeta(img.getRotation()*-1);
 		arrow.setVelocidad(velocidad);
-		arrow.setX(x);
-		arrow.setY(y);
+		arrow.setX(coordinateX);
+		arrow.setY(coordinateY);
 		arrow.draw();
     }
 	@Override
