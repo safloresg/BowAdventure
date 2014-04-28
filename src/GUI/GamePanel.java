@@ -67,7 +67,7 @@ class GamePanel extends BasicGameState  {
 		
     	g.drawString(""+player1.getImg().getRotation(), 100, 20);
     	
-    	if (player1.arrow.isArrowThrowed()){
+    	if (player1.isArrowThrowed()){
     		player1.makeMovement();  
 		}
 	}

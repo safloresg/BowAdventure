@@ -43,7 +43,7 @@ public class HumanPlayer extends Player implements InputProviderListener{
 			
 		}else if (((BasicCommand)command).getName().equals("ThrowArrow")&& !arrow.isArrowThrowed()){
 			System.out.print(command);
-			arrow.isArrowThrowed = true;
+			arrow.start();
 		} 
 
 	}
@@ -51,6 +51,10 @@ public class HumanPlayer extends Player implements InputProviderListener{
 	public void controlReleased(Command command) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public boolean isArrowThrowed(){
+		return arrow.isArrowThrowed();
 	}
 	
 	

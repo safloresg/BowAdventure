@@ -52,7 +52,7 @@ public class Arrow {
 				(GRAVEDAD/(2*Math.pow(velocidad,2)*Math.pow(Math.cos(Math.toRadians(teta)),2))*
 						Math.pow(x, 2)))));
 		img.draw(x,y);
-		img.setRotation((float) Math.atan2(x,y));
+		img.setRotation((float) Math.atan2(vx,vy));
 
 		contador++;
 		
@@ -70,22 +70,18 @@ public class Arrow {
 		isArrowThrowed = true;
 		if (this.x == 0 && this.y ==0){
 			
-			
 			this.x = x;
 			this.y = y;
 			this.velocidad = velocidad;
-			tiempoIni =System.currentTimeMillis();
+			tiempoIni =System.nanoTime();
 			this.teta =teta;
-			System.out.println("this.x"+this.x+"y"+this.y);
 		}
 		float vx = calcVx();
 		float vy = calcVy();
 		float tiempo = calcTiempoTrans();
-		System.out.println(tiempo);
 
 		this.x = 10 *contador;
 		this.y = (float) (y+(-1*((Math.tan(Math.toRadians(this.teta))*this.x)-(GRAVEDAD/(2*Math.pow(this.velocidad,2)*Math.pow(Math.cos(Math.toRadians(this.teta)),2))*Math.pow(this.x, 2)))));
-		System.out.print("yCalculada:"+this.y);
 		img.draw(this.x,this.y);
         contador++;
 		if (this.x > 500 || this.y >500){
@@ -97,7 +93,8 @@ public class Arrow {
 		}
 }
 	
-	public void setX(float x){this.x = x;}
+	public void setX(float x){
+		this.x = x;}
 	
 	public float getX(){return  x;}
 	
@@ -120,15 +117,25 @@ public class Arrow {
 	
 	private float calcTiempoTrans(){
 		/**Calcula el tiempo transcurrido desde que  se llamo a draw()**/
-		float tiempoActual = System.currentTimeMillis();
-		return 	 (tiempoActual - tiempoIni);
+		float tiempoActual = System.nanoTime();
+		return 	 (tiempoActual - tiempoIni)/1000000000;
 		
 	}
 	
 	private float calcVy(){
 		/*Calcular el vector de velocidad en y*/
+
 		return  (float)((float)(velocidad*Math.sin(Math.toRadians(teta)))-(GRAVEDAD*calcTiempoTrans()));
 	}
+	
+	public void start(){
+		if (!isArrowThrowed){
+			tiempoIni = System.nanoTime();
+			isArrowThrowed = true;}
+		
+	}
+	
+	
 	
 	public boolean isArrowThrowed(){return isArrowThrowed;}
 

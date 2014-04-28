@@ -2,6 +2,7 @@ package GUI;
 
 import javax.swing.JButton;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Game;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -16,9 +17,9 @@ import com.sun.prism.paint.Color;
 public class Menu extends BasicGameState{
 	StateBasedGame game;
 	int id ;
-	Image iniciar;
+	Animation iniciar;
 	Image puntuaciones;
-	Image salir;
+	Animation salir;
 
 	public Menu (int id){
 		this.id = id;
@@ -27,9 +28,17 @@ public class Menu extends BasicGameState{
 	public void init(GameContainer arg0, StateBasedGame game)
 			throws SlickException {
 		this.game = game;
-		iniciar = new Image("Animaciones/Bowman/iniciar.png");
+		Image[] iniciarImgs = {new Image("Animaciones/Bowman/iniciar.png"),new Image("Animaciones/Bowman/iniciar2.png")};
+		Image[] salirImgs = {new Image("Animaciones/Bowman/salir.png"),new Image("Animaciones/Bowman/salir2.png")};
+		
+		iniciar = new Animation(iniciarImgs,200,false);
+		iniciar.setLooping(false);
+
+		salir = new Animation(salirImgs,200,false);
+		salir.setLooping(false);
+		
 		puntuaciones = new Image("Animaciones/Bowman/puntuaciones.png");
-		salir = new Image("Animaciones/Bowman/salir.png");
+		
 		// TODO Auto-generated method stub
 		
 		
@@ -52,28 +61,37 @@ public class Menu extends BasicGameState{
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame stateGame, int arg2)
+	public void update(GameContainer container, StateBasedGame stateGame, int delta)
 			throws SlickException {
 		// TODO Auto-generated method stub
 		Input input = container.getInput();
 		int mousex = input.getMouseX();
 		int mousey = input.getMouseY();
-		
 	if ((mousex > 100 && mousex < 600 )  && (mousey > 100 && mousey < 200)){
+		iniciar.start();
+		iniciar.update(delta);
 		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)){
 			stateGame.enterState(1);
 
 			
 		}
 		
-	}
+	}else iniciar.setCurrentFrame(0);
+	
 if ((mousex > 100 && mousex < 600 )  && (mousey > 200 && mousey < 300)){
 	
 		
 	}
-if ((mousex > 100 && mousex < 600 )  && (mousey > 300 && mousey < 400)){	
+if ((mousex > 100 && mousex < 600 )  && (mousey > 300 && mousey < 400)){
+	salir.start();
+	salir.update(delta);
+	if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)){
+		container.exit();
+
+		
+	}
 	
-}
+}else salir.setCurrentFrame(0);
 	
 	}
 
