@@ -52,30 +52,27 @@ class GamePanel extends BasicGameState  {
 			throws SlickException {
 		player1 = new HumanPlayer(new Image("Animaciones/Bowman/arco.png",true));
 		player2 = new ComputerPlayer(player1.getImg().getFlippedCopy(true,false));
-	    provider = new InputProvider(container.getInput());
-		provider.addListener(player1);
-		provider.bindCommand(new KeyControl(Input.KEY_UP), moveUp);
-		provider.bindCommand(new KeyControl(Input.KEY_DOWN), moveDown );
-		provider.bindCommand(new KeyControl (Input.KEY_SPACE), throwArrow);
 		
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		player1.draw(10, 310);
-		
-    	g.drawString(""+player1.getImg().getRotation(), 100, 20);
+				
     	
+    	player1.render(container, game , g);
+    	/*
     	if (player1.isArrowThrowed()){
     		player1.makeMovement();  
-		}
+		}*/
 	}
 
 	@Override
-	public void update(GameContainer arg0, StateBasedGame arg1, int delta)
+	public void update(GameContainer container, StateBasedGame stateGame, int delta)
 			throws SlickException {
-		this.delta = delta;
+		player1.update(container, stateGame, delta);
+		
+	
 		
 		
 	}

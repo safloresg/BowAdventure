@@ -1,7 +1,10 @@
 package GUI;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class Arrow {
 	private Image img;
@@ -47,12 +50,14 @@ public class Arrow {
 		isArrowThrowed = true;
 		float vx = calcVx();
 		float vy = calcVy();
-		x = 10 *contador;
+		x = (float) (velocidad *Math.cos(Math.toRadians(teta))*contador);
 		y = (float) (y+(-1*((Math.tan(Math.toRadians(teta))*x)-
 				(GRAVEDAD/(2*Math.pow(velocidad,2)*Math.pow(Math.cos(Math.toRadians(teta)),2))*
 						Math.pow(x, 2)))));
+		
+		//y = (float)(-1* (y+((velocidad * Math.sin(Math.toRadians(teta))*contador)-((GRAVEDAD*(Math.pow(contador, 2)))/2))));
 		img.draw(x,y);
-		img.setRotation((float) Math.atan2(vx,vy));
+		img.setRotation((float) Math.atan2(y,x));
 
 		contador++;
 		
@@ -138,5 +143,22 @@ public class Arrow {
 	
 	
 	public boolean isArrowThrowed(){return isArrowThrowed;}
+	
+	public void render(GameContainer container,StateBasedGame game,Graphics g){
+		img.draw(x,y);
+		
+		
+	}
+	
+	public void update (GameContainer container, StateBasedGame game , int delta){
+		float vx = calcVx();
+		float vy = calcVy();
+		x = (float) (velocidad *Math.cos(Math.toRadians(teta))*delta);
+		y = (float) (y+(-1*((Math.tan(Math.toRadians(teta))*x)-
+				(GRAVEDAD/(2*Math.pow(velocidad,2)*Math.pow(Math.cos(Math.toRadians(teta)),2))*
+						Math.pow(x, 2)))));
+	}
+	
+	
 
 }
