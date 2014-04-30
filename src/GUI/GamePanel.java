@@ -51,7 +51,7 @@ class GamePanel extends BasicGameState  {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		player1 = new HumanPlayer(new Image("Animaciones/Bowman/arco.png",true));
-		player2 = new ComputerPlayer(player1.getImg().getFlippedCopy(true,false));
+		//player2 = new ComputerPlayer(player1.getImg().getFlippedCopy(true,false));
 		
 	}
 

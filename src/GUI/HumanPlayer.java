@@ -10,54 +10,47 @@ import org.newdawn.slick.command.Command;
 import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class HumanPlayer extends Player{
+public class HumanPlayer {
 
 	int contador;
-	Arrow arrow ;
+	Flecha arrow ;
 	float coordinateX;
 	float coordinateY;
 	boolean attacking;
+	Image img;
+	
     public HumanPlayer(Image img) throws SlickException {
 		this.img = img;
 		coordinateX = 10;
     	coordinateY = 310;
-		arrow = new Arrow();
+		arrow = new Flecha();
 		attacking = false;
 		
 		
 		// TODO Auto-generated constructor stub
 	}
-    public HumanPlayer() {
-    	
-    	
-    }
+   
 
-	@Override
-    public void makeMovement(){
-		float velocidad = 80;
-		arrow.setTeta(img.getRotation()*-1);
-		arrow.setVelocidad(velocidad);
-		arrow.setX(coordinateX);
-		arrow.setY(coordinateY);
-		arrow.draw();
-    }
-	
-
-
-	public boolean isArrowThrowed(){
+	/*public boolean isArrowThrowed(){
 		return arrow.isArrowThrowed();
-	}
+	}*/
+	
+	
 	
 	public void render(GameContainer gc, StateBasedGame stateGame, Graphics g ){
 		img.draw(coordinateX,coordinateY);
     	g.drawString(""+img.getRotation(), 100, 20);		
-		if (attacking){arrow.render(gc, stateGame, g);}
+		if (attacking){
+			arrow.render();
+			}
 	}
 	
 	public void update(GameContainer gc,StateBasedGame stateGame, int delta){
 		Input input = gc.getInput();
 		if (input.isKeyPressed(input.KEY_SPACE) && !attacking){
 			attacking = true;
+			arrow.init(gc, coordinateX, coordinateY,-1* img.getRotation(), 80);
+			
 		}
 		
 		if (input.isKeyPressed(input.KEY_UP) && img.getRotation() > -90){
@@ -69,12 +62,10 @@ public class HumanPlayer extends Player{
 			
 		}
 		if (attacking){
-			arrow.setX(coordinateX);
-			arrow.setY(coordinateY);
-			arrow.setTeta(-1*img.getRotation());
-			arrow.setVelocidad(60);
-			arrow.update(gc, stateGame, delta);
-		    	
+			if (arrow.isThrowed()){
+				arrow.update(gc);
+			}else
+				attacking = false;
 		}
 	}
 }

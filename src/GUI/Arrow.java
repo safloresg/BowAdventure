@@ -71,35 +71,8 @@ public class Arrow {
 		
 	}
 	
-	public void draw(float teta,float velocidad,float x,float y){
-		isArrowThrowed = true;
-		if (this.x == 0 && this.y ==0){
-			
-			this.x = x;
-			this.y = y;
-			this.velocidad = velocidad;
-			tiempoIni =System.nanoTime();
-			this.teta =teta;
-		}
-		float vx = calcVx();
-		float vy = calcVy();
-		float tiempo = calcTiempoTrans();
-
-		this.x = 10 *contador;
-		this.y = (float) (y+(-1*((Math.tan(Math.toRadians(this.teta))*this.x)-(GRAVEDAD/(2*Math.pow(this.velocidad,2)*Math.pow(Math.cos(Math.toRadians(this.teta)),2))*Math.pow(this.x, 2)))));
-		img.draw(this.x,this.y);
-        contador++;
-		if (this.x > 500 || this.y >500){
-			isArrowThrowed = false;
-			this.x =0;
-			this.y =0;
-			contador =0;
-			
-		}
-}
 	
-	public void setX(float x){
-		this.x = x;}
+	public void setX(float x){this.x = x;}
 	
 	public float getX(){return  x;}
 	
@@ -112,6 +85,10 @@ public class Arrow {
 	private float getTeta (){return teta;}
 	
 	public void setVelocidad(float velocidad){this.velocidad = velocidad;}
+	
+	public void reinitContador(){
+		contador=0;
+	}
 	
 	
 	
@@ -133,12 +110,7 @@ public class Arrow {
 		return  (float)((float)(velocidad*Math.sin(Math.toRadians(teta)))-(GRAVEDAD*calcTiempoTrans()));
 	}
 	
-	public void start(){
-		if (!isArrowThrowed){
-			tiempoIni = System.nanoTime();
-			isArrowThrowed = true;}
-		
-	}
+
 	
 	
 	
@@ -146,17 +118,25 @@ public class Arrow {
 	
 	public void render(GameContainer container,StateBasedGame game,Graphics g){
 		img.draw(x,y);
+        System.out.println("render"+x+":"+y);
+
+	
+
 		
 		
 	}
 	
 	public void update (GameContainer container, StateBasedGame game , int delta){
-		float vx = calcVx();
-		float vy = calcVy();
-		x = (float) (velocidad *Math.cos(Math.toRadians(teta))*delta);
+		//float vx = calcVx();
+		//float vy = calcVy();
+		
+		x = (float) (velocidad* Math.cos(Math.toRadians(teta)) * contador);
 		y = (float) (y+(-1*((Math.tan(Math.toRadians(teta))*x)-
 				(GRAVEDAD/(2*Math.pow(velocidad,2)*Math.pow(Math.cos(Math.toRadians(teta)),2))*
 						Math.pow(x, 2)))));
+		//y += (float)(-1* ((((velocidad * Math.sin(Math.toRadians(teta)))*contador)-((GRAVEDAD*(Math.pow(contador, 2)))/2))));
+        contador++;
+        System.out.println(x+":"+y);
 	}
 	
 	

@@ -11,8 +11,6 @@ public class ComputerPlayer extends Player{
 		this.img = img;
 	}
 
-	@Override
-    public void makeMovement() {}
 
     
 
