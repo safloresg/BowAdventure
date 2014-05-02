@@ -69,4 +69,6 @@ public class Flecha {
 		return throwed;
 	}
 	
+	 
+	
 }

@@ -13,6 +13,7 @@ public abstract class Player {
 	protected Image img= null;
     protected int coordinateX , coordinateY;
    
+   
     
     public String getPlayerName() {
 	

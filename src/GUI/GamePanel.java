@@ -4,6 +4,7 @@ package GUI;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -51,6 +52,7 @@ class GamePanel extends BasicGameState  {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		player1 = new HumanPlayer(new Image("Animaciones/Bowman/arco.png",true));
+		
 		//player2 = new ComputerPlayer(player1.getImg().getFlippedCopy(true,false));
 		
 	}
@@ -58,8 +60,6 @@ class GamePanel extends BasicGameState  {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-				
-    	
     	player1.render(container, game , g);
     	/*
     	if (player1.isArrowThrowed()){
