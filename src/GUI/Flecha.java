@@ -15,6 +15,7 @@ public class Flecha {
 	private float xIni;
 	private float teta;
 	private float velocidad;
+	private float velocidadY;
 	private float tiempo;
 	private boolean throwed;
 	
@@ -42,7 +43,7 @@ public class Flecha {
 	public void update(GameContainer gc){
 	   if (x <= scrWidth && y <= scrHeight){
 		   calcX();
-		   calcY();
+		   calcY();	
 		   System.out.println("update x="+x+" y="+y+"Tiempo= "+tiempo);
 		   //render();
 		   
@@ -53,6 +54,7 @@ public class Flecha {
 
 	public void render(){
 		img.draw(x,y);
+		img.setRotation((float) Math.atan2(velocidadY, velocidad));
 		System.out.println("render x="+x+" y="+y+"tiempo= "+tiempo);
 	}
 	
@@ -62,11 +64,17 @@ public class Flecha {
 	}
 	
 	private void calcY(){
-		y = (float)(yIni-((((velocidad * Math.sin(Math.toRadians(teta)))*tiempo)-((GRAVEDAD*Math.pow(tiempo, 2))/2))));
+		calcVelocidadY();
+		System.out.print("Veolocidad y="+velocidadY);
+		y = (float)(yIni-((((velocidadY * Math.sin(Math.toRadians(teta)))*tiempo)-((GRAVEDAD*Math.pow(tiempo, 2))/2))));
 	}
 	
 	public boolean isThrowed(){
 		return throwed;
+	}
+	
+	public void calcVelocidadY(){
+		velocidadY = (float) (velocidad * Math.sin(Math.toRadians(teta)) - (GRAVEDAD * tiempo));		
 	}
 	
 	 
