@@ -54,8 +54,9 @@ public class Flecha {
 
 	public void render(){
 		img.draw(x,y);
+		
 		img.setRotation((float) Math.atan2(velocidadY, velocidad));
-		System.out.println("render x="+x+" y="+y+"tiempo= "+tiempo);
+		System.out.println("render x="+x+" y="+y+"tiempo= "+tiempo+" Angulo= "+img.getRotation());
 	}
 	
 	private void calcX(){
@@ -76,6 +77,8 @@ public class Flecha {
 	public void calcVelocidadY(){
 		velocidadY = (float) (velocidad * Math.sin(Math.toRadians(teta)) - (GRAVEDAD * tiempo));		
 	}
+	
+	
 	
 	 
 	
