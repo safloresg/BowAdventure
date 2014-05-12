@@ -5,21 +5,25 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.command.BasicCommand;
-import org.newdawn.slick.command.Command;
-import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class HumanPlayer {
 
 	int contador;
-	Flecha arrow ;
+	Flecha arrow;
+	//Barra donde se carga la fuerza con que es lanzada una flecha
 	LoadBar barra;
+	//Coordenadas en x del arquero
 	float coordinateX;
+	//Coordenadas en y del arquero
 	float coordinateY;
+	//true si se esta cargando un ataque
 	boolean loading;
+	//true si se el arquero esta atacando
 	boolean attacking;
+	//Sprite de arquero
 	Image img;
+	//Estado en el que se encuentra el arquero(reposo,atacando,cargandoAtaque,Atacado)
 	Estado estado;
 	
 	enum Estado{REPOSO,ATACANDO,CARGANDOATAQUE,ATACADO}
@@ -36,11 +40,11 @@ public class HumanPlayer {
 		
 		// TODO Auto-generated constructor stub
 	}
+    
+    
    
 
-	/*public boolean isArrowThrowed(){
-		return arrow.isArrowThrowed();
-	}*/
+
 	
 	
 	
@@ -63,13 +67,7 @@ public class HumanPlayer {
 			break;
     	 
     	
-    	}/*
-		if (attacking){
-			arrow.render();
-			}
-		if (loading){
-			barra.render();
-		}*/
+    	}
 	}
 	
 	public void update(GameContainer gc,StateBasedGame stateGame, int delta){
@@ -78,7 +76,7 @@ public class HumanPlayer {
         switch(estado){
         
         case REPOSO :
-        	if (input.isKeyDown(input.KEY_SPACE))
+        	if (input.isKeyDown(Input.KEY_SPACE))
         	{
             	estado = Estado.CARGANDOATAQUE;
             	barra.init(coordinateX, coordinateY);
@@ -103,8 +101,10 @@ public class HumanPlayer {
         	break;
         	
         case ATACANDO :
+        	// Si hay un ataque en curso se actualiza el juego , si no, se cambia el estado a REPOSO
         	if (arrow.isThrowed())
         	{
+        		
         		arrow.update(gc);
         	}else
         		estado = Estado.REPOSO;
@@ -119,38 +119,14 @@ public class HumanPlayer {
         }
         
        
-/*
- 		if (input.isKeyPressed(input.KEY_SPACE) && !attacking){
-			attacking = true;
-			arrow.init(gc, coordinateX, coordinateY,-1* img.getRotation(), 80);
-			
-		}
- 		
-       if (input.isKeyDown(Input.KEY_SPACE) && !loading ){
-			loading = true;
-			barra.init(coordinateX, coordinateY);
-			
-			
-		}else loading = false;
-		*/
-		if (input.isKeyPressed(input.KEY_UP) && img.getRotation() > -90){
+
+		if (input.isKeyPressed(Input.KEY_UP) && img.getRotation() > -90){
 			img.rotate(-5);
 		}
 		
-		if (input.isKeyPressed(input.KEY_DOWN) && img.getRotation() < 0){
+		if (input.isKeyPressed(Input.KEY_DOWN) && img.getRotation() < 0){
 			img.rotate(5);
 			
-		}/*
-		if (attacking){
-			if (arrow.isThrowed()){
-				arrow.update(gc);
-			}else
-				attacking = false;
 		}
-		
-		if (input.isKeyDown(Input.KEY_SPACE)&&loading){
-			barra.update();
-			
-		}*/
 	}
 }

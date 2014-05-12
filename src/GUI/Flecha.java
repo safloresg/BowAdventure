@@ -5,21 +5,35 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class Flecha {
+	
 	private static final float GRAVEDAD = 9.8f;
+	//Imagen de la flecha
 	private Image img;
+	//largo de la pantalla
 	private float scrWidth;
+	//ancho de la pantalla
 	private float scrHeight;
+	//posicion de la flecha en x
 	private float x;
+	//posicion de la flecha en y
 	private float y;
+	//posicion inicial de la flecha en y
 	private float yIni;
+	//posicion inicial de la flecha en x
 	private float xIni;
+	//Angulo con que es lanzado la flecha
 	private float teta;
+	//Velocidad con que es lanzada la fleca
 	private float velocidad;
+	//Velocidad en y de la flecha
 	private float velocidadY;
+	//tiempo transcurrido desde que es lanzada la flecha
 	private float tiempo;
+	//true si la flecha esta lanzada
 	private boolean throwed;
 	
 	public void init(GameContainer gc,float x, float y , float teta , float velocidad){
+		//se inicializan las variables
 		this.x = x;
 		this.y = y;
 		this.yIni = y;
@@ -32,12 +46,15 @@ public class Flecha {
 		throwed = true;
 		try {
 			img = new Image("Animaciones/Bowman/flecha.png");
-		   img.setRotation((float) Math.toRadians(40));
+		   
+		   
 
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		img.setRotation(-teta);
+
 		
 		
 	}
@@ -56,7 +73,7 @@ public class Flecha {
 
 	public void render(){
 		img.draw(x,y);
-		img.rotate((float) (Math.PI - Math.atan2(velocidadY,velocidad)));
+		img.rotate((float) (Math.PI + Math.atan2(velocidad,velocidadY)));
 		//img.setRotation((float) (Math.PI + Math.atan2(velocidadY,velocidad)));
 		System.out.println(Math.toDegrees(img.getRotation()));
 		//System.out.println("render x="+x+" y="+y+"tiempo= "+tiempo+" Angulo= "+img.getRotation());
