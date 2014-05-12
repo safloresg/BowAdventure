@@ -32,6 +32,8 @@ public class Flecha {
 		throwed = true;
 		try {
 			img = new Image("Animaciones/Bowman/flecha.png");
+		   img.setRotation((float) Math.toRadians(40));
+
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,16 +49,17 @@ public class Flecha {
 		   System.out.println("update x="+x+" y="+y+"Tiempo= "+tiempo);
 		   //render();
 		   
-		   tiempo++;
+		   tiempo+=.2;
 	   }
 	   else {throwed = false;}
 	}
 
 	public void render(){
 		img.draw(x,y);
-		
-		img.setRotation((float) Math.atan2(velocidadY, velocidad));
-		System.out.println("render x="+x+" y="+y+"tiempo= "+tiempo+" Angulo= "+img.getRotation());
+		img.rotate((float) (Math.PI - Math.atan2(velocidadY,velocidad)));
+		//img.setRotation((float) (Math.PI + Math.atan2(velocidadY,velocidad)));
+		System.out.println(Math.toDegrees(img.getRotation()));
+		//System.out.println("render x="+x+" y="+y+"tiempo= "+tiempo+" Angulo= "+img.getRotation());
 	}
 	
 	private void calcX(){
@@ -67,7 +70,7 @@ public class Flecha {
 	private void calcY(){
 		calcVelocidadY();
 		System.out.print("Veolocidad y="+velocidadY);
-		y = (float)(yIni-((((velocidadY * Math.sin(Math.toRadians(teta)))*tiempo)-((GRAVEDAD*Math.pow(tiempo, 2))/2))));
+		y = (float)(yIni-((((velocidadY * Math.sin(Math.toRadians(teta)))*tiempo)-((GRAVEDAD*Math.pow(tiempo, 2))))));
 	}
 	
 	public boolean isThrowed(){

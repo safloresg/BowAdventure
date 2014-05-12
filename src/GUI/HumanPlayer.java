@@ -95,7 +95,7 @@ public class HumanPlayer {
         		
         	}else{
         		 estado = Estado.ATACANDO;
-     			arrow.init(gc, coordinateX, coordinateY,-1* img.getRotation(), 80);
+     			arrow.init(gc, coordinateX, coordinateY,-1* img.getRotation(), 140);
         		
         	}
 
