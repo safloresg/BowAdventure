@@ -36,8 +36,7 @@ class GamePanel extends BasicGameState  {
 			throws SlickException {
 		player1 = new HumanPlayer(new Image("Animaciones/Bowman/arco.png",true));
 		
-		//player2 = new ComputerPlayer(player1.getImg().getFlippedCopy(true,false));
-		
+		player2 = new ComputerPlayer(player1.getImg().getFlippedCopy(true,false));
 	}
 
 	@Override
@@ -45,6 +44,7 @@ class GamePanel extends BasicGameState  {
 			throws SlickException {
     	player1.render(container, game , g);
     	
+    	player2.render(container, game, g);
 	}
 
 	@Override
@@ -53,12 +53,10 @@ class GamePanel extends BasicGameState  {
 		Input in = container.getInput();
 		
 		player1.update(container, stateGame, delta);
+		// player2.update(container, stateGame, delta);
 		if (in.isKeyPressed(Input.KEY_ENTER)){
 			stateGame.enterState(Estados.Menu.getNumberOfMenu());
 		}
-	
-		
-		
 	}
 
 	@Override

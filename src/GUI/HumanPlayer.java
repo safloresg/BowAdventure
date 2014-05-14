@@ -7,27 +7,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class HumanPlayer {
+public class HumanPlayer extends Player {
 
-	int contador;
-	Flecha arrow;
-	//Barra donde se carga la fuerza con que es lanzada una flecha
-	LoadBar barra;
-	//Coordenadas en x del arquero
-	float coordinateX;
-	//Coordenadas en y del arquero
-	float coordinateY;
-	//true si se esta cargando un ataque
-	boolean loading;
-	//true si se el arquero esta atacando
-	boolean attacking;
-	//Sprite de arquero
-	Image img;
-	//Estado en el que se encuentra el arquero(reposo,atacando,cargandoAtaque,Atacado)
-	Estado estado;
-	
-	enum Estado{REPOSO,ATACANDO,CARGANDOATAQUE,ATACADO}
-	
     public HumanPlayer(Image img) throws SlickException {
 		this.img = img;
 		coordinateX = 10;
@@ -41,12 +22,6 @@ public class HumanPlayer {
 		// TODO Auto-generated constructor stub
 	}
     
-    
-   
-
-
-	
-	
 	
 	public void render(GameContainer gc, StateBasedGame stateGame, Graphics g ){
 		img.draw(coordinateX,coordinateY);
@@ -56,7 +31,7 @@ public class HumanPlayer {
 		case ATACADO:
 			break;
 		case ATACANDO:
-			arrow.render();
+			arrow.render(gc, stateGame, g);
 			break;
 		case CARGANDOATAQUE:
 			barra.render();
@@ -81,31 +56,22 @@ public class HumanPlayer {
             	estado = Estado.CARGANDOATAQUE;
             	barra.init(coordinateX, coordinateY);
         	}
-        	
         	break;
-        	
         case CARGANDOATAQUE :
         	if (input.isKeyDown(Input.KEY_SPACE))
         	{
         		barra.update();
-        		//estado = Estado.ATACANDO;
-        		
-        		
+        		//estado = Estado.ATACANDO;        		
         	}else{
         		 estado = Estado.ATACANDO;
-     			arrow.init(gc, coordinateX, coordinateY,-1* img.getRotation(), 140);
-        		
+     			arrow.init(gc, coordinateX, coordinateY,-1* img.getRotation(), barra.getVelocidad());
         	}
-
-        	
         	break;
-        	
         case ATACANDO :
         	// Si hay un ataque en curso se actualiza el juego , si no, se cambia el estado a REPOSO
         	if (arrow.isThrowed())
         	{
-        		
-        		arrow.update(gc);
+        		arrow.update(gc, stateGame, delta);
         	}else
         		estado = Estado.REPOSO;
         	break;
@@ -113,13 +79,7 @@ public class HumanPlayer {
 			break;
 		default:
 			break;
-        	
-        
-        
         }
-        
-       
-
 		if (input.isKeyPressed(Input.KEY_UP) && img.getRotation() > -90){
 			img.rotate(-5);
 		}

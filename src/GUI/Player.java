@@ -1,59 +1,34 @@
 package GUI;
 
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
 
-public abstract class Player {
-	protected String playerName;
-	protected int playerNumber;
-	protected int hitPoints;
-	protected int missPoints;
-	protected Image img= null;
-    protected int coordinateX , coordinateY;
-   
-   
-    
-    public String getPlayerName() {
+
+public abstract class Player implements Renderizable {
 	
-	return playerName;
-		
-    }
-    
-    public void setPlayerName(String playerName){
-	this.playerName = playerName;
-    }
-    public int getplayerNumber(){
-	return playerNumber;
-    }
-    public void setPlayerNumber(int playerNumber){
-	this.playerNumber = playerNumber;
-    }
-    public void addHitPoint(){}
+	int contador;
+	Flecha arrow;
+	//Barra donde se carga la fuerza con que es lanzada una flecha
+	LoadBar barra;
+	//Coordenadas en x del arquero
+	float coordinateX;
+	//Coordenadas en y del arquero
+	float coordinateY;
+	//true si se esta cargando un ataque
+	boolean loading;
+	//true si se el arquero esta atacando
+	boolean attacking;
+	//Sprite de arquero
+	Image img;
+	//Estado en el que se encuentra el arquero(reposo,atacando,cargandoAtaque,Atacado)
+	Estado estado;
+	
+	enum Estado{REPOSO,ATACANDO,CARGANDOATAQUE,ATACADO}
+	
+	public Image getImg(){
+		return img;
+	}
 
-    public void addMissPoint(){}
-
-    public int getHitPoints(){
-	return hitPoints;
-    }
-    public int getMissPoints(){
-	return missPoints;
-    }
-    
-    public void setImg(Image img){
-	this.img = img;
-    }
-    
-    public Image getImg(){
-	return this.img;
-    }
-    public void draw(int x, int y){
-    	coordinateX = x;
-    	coordinateY = y;
-    	img.draw(x,y);    	
-    	
-    }
+	
      
     
 }

@@ -16,13 +16,15 @@ public class LoadBar{
 	 private float whiteBarX;
 	 //Coordenadas en y de la barra chica
 	 private float whiteBarY;
-	 
+	 //velocidad con la que despegara la flecha
+	 private float velocidad;
+	 //True si la flecha va hacia la derecha
 	 private boolean direccion;
 	 
 	 public void init(float xCoordinate , float yCoordinate){
 		 this.xCoordinate = xCoordinate;
 		 this.yCoordinate = yCoordinate;
-		 
+		 velocidad = 0;
 		 direccion = true;		
 		 try {	 
 			barImg = new Image("Animaciones/Bowman/barra.png");
@@ -40,17 +42,17 @@ public class LoadBar{
 		whiteBarImg.draw(whiteBarX, whiteBarY);
 	 }
 	 
+	 //la barrita blanca se oscila de izquierda a derecha
 	 public void update(){
-		
+	     //limite derecho hasta donde llegara la barrita blanca	
 		float rightLimit = xCoordinate +barImg.getWidth();
+		//limite izquierdo hasta donde llegara la barrita blance
 		float leftLimit = xCoordinate;
 		if (direccion)
 		{
 			if (whiteBarX < rightLimit)
 			{
-				whiteBarX+=5;
-				
-				
+				whiteBarX+=5;		
 			}else direccion = false;
 		}
 		else
@@ -62,12 +64,13 @@ public class LoadBar{
 			else 
 			{
 				direccion = true;
-			}
-			
+			}	
 		}
+		velocidad = whiteBarX -leftLimit;
+	 }
+	 public float getVelocidad (){
 		 
+		 return velocidad;
 		 
 	 }
-	
-	
 }
