@@ -9,10 +9,10 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class HumanPlayer extends Player {
 
-    public HumanPlayer(Image img) throws SlickException {
+    public HumanPlayer(Image img,int x,int y) throws SlickException {
 		this.img = img;
-		coordinateX = 10;
-    	coordinateY = 310;
+		coordinateX = x;
+    	coordinateY = y;
 		arrow = new Flecha();
 		attacking = false;
 		barra = new LoadBar();
@@ -31,7 +31,7 @@ public class HumanPlayer extends Player {
 		case ATACADO:
 			break;
 		case ATACANDO:
-			arrow.render(gc, stateGame, g);
+				arrow.render(gc, stateGame, g);
 			break;
 		case CARGANDOATAQUE:
 			barra.render();
@@ -40,8 +40,6 @@ public class HumanPlayer extends Player {
 			break;
 		default:
 			break;
-    	 
-    	
     	}
 	}
 	
@@ -51,7 +49,7 @@ public class HumanPlayer extends Player {
         switch(estado){
         
         case REPOSO :
-        	if (input.isKeyDown(Input.KEY_SPACE))
+        	if (input.isKeyDown(Input.KEY_SPACE) )
         	{
             	estado = Estado.CARGANDOATAQUE;
             	barra.init(coordinateX, coordinateY);
@@ -64,7 +62,7 @@ public class HumanPlayer extends Player {
         		//estado = Estado.ATACANDO;        		
         	}else{
         		 estado = Estado.ATACANDO;
-     			arrow.init(gc, coordinateX, coordinateY,-1* img.getRotation(), barra.getVelocidad());
+     			 arrow.init(gc, coordinateX, coordinateY,-1* img.getRotation(), barra.getVelocidad());
         	}
         	break;
         case ATACANDO :
@@ -89,4 +87,5 @@ public class HumanPlayer extends Player {
 			
 		}
 	}
+	
 }

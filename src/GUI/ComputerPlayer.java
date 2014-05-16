@@ -11,10 +11,10 @@ import GUI.Player.Estado;
 
 public class ComputerPlayer extends Player {
 	
-	ComputerPlayer(Image img) {
+	ComputerPlayer(Image img,int x, int y) {
 		this.img = img;
-		coordinateX = 500;
-    	coordinateY = 310;
+		coordinateX = x;
+    	coordinateY = y;
 		arrow = new Flecha();
 		attacking = false;
 		barra = new LoadBar();
@@ -61,7 +61,7 @@ public class ComputerPlayer extends Player {
         		barra.update();
         		//estado = Estado.ATACANDO;        		
         	}else{
-        		 estado = Estado.ATACANDO;
+        		estado = Estado.ATACANDO;
      			arrow.init(gc, coordinateX, coordinateY,-1* img.getRotation(), barra.getVelocidad());
         	}
         	break;
