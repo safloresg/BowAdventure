@@ -21,11 +21,11 @@ class GamePanel extends BasicGameState  {
     /*jugador 2*/
     private HumanPlayer player1;
     /*Jugador 2*/
-    private Player player2;
+    private ComputerPlayer player2;
     //tiempo transcurrido
     int delta;
     //true si es el turno de player1. false si es turno de player2
-    private boolean turno;
+    private int turno;
     
     public GamePanel(int id){
     	this.id = id;
@@ -36,8 +36,9 @@ class GamePanel extends BasicGameState  {
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		player1 = new HumanPlayer(new Image("Animaciones/Bowman/arco.png",true),10,310);
 		
+		turno = 1;
+		player1 = new HumanPlayer(new Image("Animaciones/Bowman/arco.png",true),10,310);
 		player2 = new ComputerPlayer(player1.getImg().getFlippedCopy(true,false),500,310);
 	}
 
@@ -54,12 +55,34 @@ class GamePanel extends BasicGameState  {
 			throws SlickException {
 		Input in = container.getInput();
 	    //if (!player1.isMoveMaked())
-		if (!player1.isMoveMaked())
-		player1.update(container, stateGame, delta);
-		//if (!player2.isMoveMaked())
-		player2.update(container, stateGame, delta);
-		
-		
+		if ( Math.pow(-1, turno) > 0)
+		{
+			System.out.println("turno Jugador 1");
+			player1.update(container, stateGame, delta);
+			if (player1.isMoveMaked())
+			{
+				turno ++;
+				player2.init();
+				
+				
+			}
+			
+		}
+		else
+		{
+			player2.update(container, stateGame, delta);
+			if (player2.isMoveMaked())
+			{
+				System.out.println("Entra en turno");
+				turno ++;
+				player1.init();
+				
+			}
+
+			
+		}
+			
+			
 		if (in.isKeyPressed(Input.KEY_ENTER)){
 			stateGame.enterState(Estados.Menu.getNumberOfMenu());
 		}

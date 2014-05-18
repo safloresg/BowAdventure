@@ -22,6 +22,11 @@ public class HumanPlayer extends Player {
 		// TODO Auto-generated constructor stub
 	}
     
+    public void init (){
+    	
+    	estado = Estado.REPOSO;
+    }
+    
 	
 	public void render(GameContainer gc, StateBasedGame stateGame, Graphics g ){
 		img.draw(coordinateX,coordinateY);
@@ -71,7 +76,7 @@ public class HumanPlayer extends Player {
         	{
         		arrow.update(gc, stateGame, delta);
         	}else
-        		estado = Estado.REPOSO;
+        		estado = Estado.ATACADO;
         	break;
 		case ATACADO:
 			break;

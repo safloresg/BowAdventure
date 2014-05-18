@@ -58,10 +58,7 @@ public class Flecha implements Renderizable{
 		img.setRotation(-teta);
 
 		
-		
 	}
-	
-	
 	
 	private void calcX(){
 	x = (float)(xIni+((velocidad * Math.cos(Math.toRadians(teta)))*tiempo));
@@ -108,6 +105,8 @@ public class Flecha implements Renderizable{
 		   else {throwed = false;}
 		
 	}
+	
+		
 	
 	
 	

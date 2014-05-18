@@ -21,6 +21,8 @@ public class ComputerPlayer extends Player {
 		estado = Estado.REPOSO;
 	}
 	
+
+	
 	public void render(GameContainer gc, StateBasedGame stateGame, Graphics g ){
 		img.draw(coordinateX,coordinateY);
     	g.drawString(""+img.getRotation(), 100, 20);	
@@ -41,6 +43,10 @@ public class ComputerPlayer extends Player {
     	 
     	
     	}
+	}
+	
+	public void init (){
+		estado = Estado.REPOSO;
 	}
 	
 	public void update(GameContainer gc,StateBasedGame stateGame, int delta){
@@ -71,7 +77,7 @@ public class ComputerPlayer extends Player {
         	{
         		arrow.update(gc, stateGame, delta);
         	}else
-        		estado = Estado.REPOSO;
+        		estado = Estado.ATACADO;
         	break;
 		case ATACADO:
 			break;

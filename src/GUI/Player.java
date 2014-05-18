@@ -6,6 +6,7 @@ import org.newdawn.slick.Image;
 public abstract class Player implements Renderizable {
 	
 	protected int contador;
+	
 	protected Flecha arrow;
 	//Barra donde se carga la fuerza con que es lanzada una flecha
 	protected LoadBar barra;
@@ -35,9 +36,9 @@ public abstract class Player implements Renderizable {
 	
 	public boolean isMoveMaked(){
 		if (estado == Estado.ATACADO) 
-		return isMoveMaked;
+		return true;
 		else
-		return isMoveMaked;
+		return false;
 	}
 	
 

@@ -33,7 +33,7 @@ public class LoadBar{
 			// TODO Auto-generated catch block
 			e.printStackTrace();	
 		}
-		 whiteBarX = barImg.getCenterOfRotationX();
+		 whiteBarX = xCoordinate +barImg.getCenterOfRotationX();
 		 whiteBarY = yCoordinate;
 	 }
 	 
