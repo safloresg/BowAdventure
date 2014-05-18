@@ -33,6 +33,14 @@ public class Flecha implements Renderizable{
 	private float tiempo;
 	//true si la flecha esta lanzada
 	private boolean throwed;
+	//true si la flecha va hacia la derecha. false:si la flecha va hacia la izquierda
+	private boolean direccion;
+	
+	public Flecha(Image img,boolean direccion) {
+		this.img = img;
+		this.direccion = direccion;
+		
+	}
 	
 	public void init(GameContainer gc,float x, float y , float teta , float velocidad){
 		//se inicializan las variables
@@ -46,22 +54,16 @@ public class Flecha implements Renderizable{
 		this.scrWidth = gc.getWidth();
 		tiempo = 0;
 		throwed = true;
-		try {
-			img = new Image("Animaciones/Bowman/flecha.png");
-		   
-		   
-
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		img.setRotation(-teta);
-
 		
+		img.setRotation(-teta);
 	}
 	
 	private void calcX(){
+	if (direccion)
 	x = (float)(xIni+((velocidad * Math.cos(Math.toRadians(teta)))*tiempo));
+	else
+	x = (float)(xIni-((velocidad * Math.cos(Math.toRadians(teta)))*tiempo));
+
 	//x = velocidad * tiempo;
 	}
 	
@@ -76,7 +78,7 @@ public class Flecha implements Renderizable{
 	}
 	
 	public void calcVelocidadY(){
-		velocidadY = (float) (velocidad * Math.sin(Math.toRadians(teta)) - (GRAVEDAD * tiempo));		
+		velocidadY = (float) (velocidad * Math.sin(Math.toRadians(teta))-(GRAVEDAD * tiempo));		
 	}
 
 	@Override
@@ -102,14 +104,10 @@ public class Flecha implements Renderizable{
 			   
 			   tiempo+=.2;
 		   }
-		   else {throwed = false;}
-		
+		   else 
+		   {
+			   throwed = false;
+		   }	
 	}
-	
-		
-	
-	
-	
-	 
 	
 }

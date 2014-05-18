@@ -13,7 +13,7 @@ public class HumanPlayer extends Player {
 		this.img = img;
 		coordinateX = x;
     	coordinateY = y;
-		arrow = new Flecha();
+		arrow = new Flecha(new Image("Animaciones/Bowman/flecha.png"),true);
 		attacking = false;
 		barra = new LoadBar();
 		estado = Estado.REPOSO;
@@ -65,9 +65,10 @@ public class HumanPlayer extends Player {
         	{
         		barra.update();
         		//estado = Estado.ATACANDO;        		
-        	}else{
-        		 estado = Estado.ATACANDO;
-     			 arrow.init(gc, coordinateX, coordinateY,-1* img.getRotation(), barra.getVelocidad());
+        	}else
+        	{
+        		estado = Estado.ATACANDO;
+				arrow.init(gc, coordinateX, coordinateY,-1* img.getRotation(), barra.getVelocidad());
         	}
         	break;
         case ATACANDO :

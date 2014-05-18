@@ -27,16 +27,15 @@ class GamePanel extends BasicGameState  {
     //true si es el turno de player1. false si es turno de player2
     private int turno;
     
-    public GamePanel(int id){
+    public GamePanel(int id)
+    {
     	this.id = id;
     }
-    
-    
 
+    
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		
 		turno = 1;
 		player1 = new HumanPlayer(new Image("Animaciones/Bowman/arco.png",true),10,310);
 		player2 = new ComputerPlayer(player1.getImg().getFlippedCopy(true,false),500,310);
@@ -46,7 +45,6 @@ class GamePanel extends BasicGameState  {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
     	player1.render(container, game, g);
-    	
     	player2.render(container, game, g);
 	}
 
@@ -63,10 +61,7 @@ class GamePanel extends BasicGameState  {
 			{
 				turno ++;
 				player2.init();
-				
-				
 			}
-			
 		}
 		else
 		{

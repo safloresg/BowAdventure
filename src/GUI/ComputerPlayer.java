@@ -11,12 +11,12 @@ import GUI.Player.Estado;
 
 public class ComputerPlayer extends Player {
 	
-	ComputerPlayer(Image img,int x, int y) {
+	ComputerPlayer(Image img,int x, int y) throws SlickException {
 		this.img = img;
 		coordinateX = x;
     	coordinateY = y;
-		arrow = new Flecha();
-		attacking = false;
+    	arrow = new Flecha(new Image("Animaciones/Bowman/flecha.png").getFlippedCopy(true, false),false);
+    	attacking = false;
 		barra = new LoadBar();
 		estado = Estado.REPOSO;
 	}
@@ -25,7 +25,7 @@ public class ComputerPlayer extends Player {
 	
 	public void render(GameContainer gc, StateBasedGame stateGame, Graphics g ){
 		img.draw(coordinateX,coordinateY);
-    	g.drawString(""+img.getRotation(), 100, 20);	
+    	g.drawString(""+img.getRotation(), 200, 20);	
     	
     	switch(estado){
 		case ATACADO:
@@ -66,9 +66,12 @@ public class ComputerPlayer extends Player {
         	{
         		barra.update();
         		//estado = Estado.ATACANDO;        		
-        	}else{
+        	}else
+        	{
         		estado = Estado.ATACANDO;
-     			arrow.init(gc, coordinateX, coordinateY,-1* img.getRotation(), barra.getVelocidad());
+
+				arrow.init(gc, coordinateX, coordinateY,-1* img.getRotation(), barra.getVelocidad());
+			
         	}
         	break;
         case ATACANDO :
@@ -84,12 +87,12 @@ public class ComputerPlayer extends Player {
 		default:
 			break;
         }
-		if (input.isKeyPressed(Input.KEY_UP) && img.getRotation() > -90){
-			img.rotate(-5);
+		if (input.isKeyPressed(Input.KEY_UP) && img.getRotation() < 90){
+			img.rotate(5);
 		}
 		
-		if (input.isKeyPressed(Input.KEY_DOWN) && img.getRotation() < 0){
-			img.rotate(5);
+		if (input.isKeyPressed(Input.KEY_DOWN) && img.getRotation() > 0){
+			img.rotate(-5);
 			
 		}
 	}
