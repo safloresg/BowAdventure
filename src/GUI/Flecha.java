@@ -54,8 +54,11 @@ public class Flecha implements Renderizable{
 		this.scrWidth = gc.getWidth();
 		tiempo = 0;
 		throwed = true;
-		
+		if (direccion)
 		img.setRotation(-teta);
+		else
+		img.setRotation(teta);
+
 	}
 	
 	private void calcX(){
@@ -68,7 +71,7 @@ public class Flecha implements Renderizable{
 	}
 	
 	private void calcY(){
-		calcVelocidadY();
+		calcVelocidadY(); 	
 		//System.out.print("Veolocidad y="+velocidadY);
 		y = (float)(yIni-((((velocidadY * Math.sin(Math.toRadians(teta)))*tiempo)-((GRAVEDAD*Math.pow(tiempo, 2))))));
 	}
@@ -85,7 +88,16 @@ public class Flecha implements Renderizable{
 	public void render(GameContainer gc, StateBasedGame stateGame, Graphics g) {
 		// TODO Auto-generated method stub
 		img.draw(x,y);
-		img.rotate((float) (Math.PI + Math.atan2(velocidad,velocidadY)));
+		if (direccion)
+		{
+			img.rotate((float) (Math.PI + Math.atan2(velocidad,velocidadY)));
+			
+		}else 
+		{
+			img.rotate((float)(-Math.PI - Math.atan2(velocidad,velocidadY)));
+			
+		}
+		
 		//img.setRotation((float) (Math.PI + Math.atan2(velocidadY,velocidad)));
 	//	System.out.println(Math.toDegrees(img.getRotation()));
 		//System.out.println("render x="+x+" y="+y+"tiempo= "+tiempo+" Angulo= "+img.getRotation());
