@@ -38,7 +38,7 @@ public abstract class Player implements Renderizable {
 	protected float angulo;
 	
 	enum Estado{REPOSO,ATACANDO,CARGANDOATAQUE,ATACADO}
-	
+	public Player(){}
 	public Player(Image img,int x,int y,Image flechaImg,boolean direccion){
 		puntos = 0;
 		this.img = img;

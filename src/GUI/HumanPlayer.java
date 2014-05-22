@@ -9,9 +9,13 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class HumanPlayer extends Player {
 
+	public HumanPlayer(){}
+	
     public HumanPlayer(Image img,int x,int y) throws SlickException {
 		super (img,x,y,new Image("Animaciones/Bowman/flecha.png"),true);
 		
 	}
+    
+    
 }
 

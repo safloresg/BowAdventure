@@ -1,7 +1,6 @@
 package GUI;
 
 import java.awt.Rectangle;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -38,6 +37,7 @@ public class Flecha implements Renderizable{
 	private boolean direccion;
 	//Lista de Arqueros
 	
+	
 	public Flecha(Image img,boolean direccion) {
 		this.img = img;
 		this.direccion = direccion;
@@ -62,19 +62,19 @@ public class Flecha implements Renderizable{
 		img.setRotation(teta);
 
 	}
-	
+
 	private void calcX(){
 	if (direccion)
-	x = (float)(xIni+((velocidad * Math.cos(Math.toRadians(teta)))*tiempo));
+		x = (float)(xIni+((velocidad * Math.cos(Math.toRadians(teta)))*tiempo));
 	else
-	x = (float)(xIni-((velocidad * Math.cos(Math.toRadians(teta)))*tiempo));
+		x = (float)(xIni-((velocidad * Math.cos(Math.toRadians(teta)))*tiempo));
 
 	//x = velocidad * tiempo;
 	}
 	
 	private void calcY(){
 		calcVelocidadY(); 	
-		//System.out.print("Veolocidad y="+velocidadY);
+		//System.out.print("Veolocidad y=" + velocidadY);
 		y = (float)(yIni-((((velocidadY * Math.sin(Math.toRadians(teta)))*tiempo)-((GRAVEDAD*Math.pow(tiempo, 2))))));
 	}
 	
@@ -97,7 +97,6 @@ public class Flecha implements Renderizable{
 		}else 
 		{
 			img.rotate((float)(-Math.PI - Math.atan2(velocidad,velocidadY)));
-			
 		}
 		
 		//img.setRotation((float) (Math.PI + Math.atan2(velocidadY,velocidad)));
@@ -114,23 +113,24 @@ public class Flecha implements Renderizable{
 			   calcX();
 			   calcY();	
 			   
-			   tiempo+=.2;
+			   tiempo+=.3;
 		   }
 		   else 
 		   {
 			   throwed = false;
 		   }	
-	}
+	}	
 	
 	public Rectangle getBounds(){
-		
 		return new Rectangle((int)x,(int)y,img.getWidth(),img.getHeight());
 	}
 	
-	public void setX(float x){this.x = x;}
+	public void setX(float x){this.xIni += x;}
 	
-	public void setY(float y){this.y = y;}
+	public void setY(float y){this.yIni = y;}
 	
 	public float getVelX (){return velocidad;}
+	
+	public void setVelX(float velocidadX){this.velocidad = velocidadX;}
 	
 }
