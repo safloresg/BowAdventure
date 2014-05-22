@@ -1,9 +1,10 @@
 package GUI;
 
+import java.awt.Rectangle;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Flecha implements Renderizable{
@@ -35,6 +36,7 @@ public class Flecha implements Renderizable{
 	private boolean throwed;
 	//true si la flecha va hacia la derecha. false:si la flecha va hacia la izquierda
 	private boolean direccion;
+	//Lista de Arqueros
 	
 	public Flecha(Image img,boolean direccion) {
 		this.img = img;
@@ -111,8 +113,6 @@ public class Flecha implements Renderizable{
 		if (x <= scrWidth && y <= scrHeight){
 			   calcX();
 			   calcY();	
-			  // System.out.println("update x="+x+" y="+y+"Tiempo= "+tiempo);
-			   //render();
 			   
 			   tiempo+=.2;
 		   }
@@ -121,5 +121,16 @@ public class Flecha implements Renderizable{
 			   throwed = false;
 		   }	
 	}
+	
+	public Rectangle getBounds(){
+		
+		return new Rectangle((int)x,(int)y,img.getWidth(),img.getHeight());
+	}
+	
+	public void setX(float x){this.x = x;}
+	
+	public void setY(float y){this.y = y;}
+	
+	public float getVelX (){return velocidad;}
 	
 }

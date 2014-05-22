@@ -10,6 +10,10 @@ public class ComputerPlayer extends Player {
 		super(img,x,y,new Image("Animaciones/Bowman/flecha.png").getFlippedCopy(true, true),false);
 	}
 	
+	
+	
+
+	
 
 	
 	

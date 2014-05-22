@@ -1,17 +1,18 @@
 package GUI;
 
+import java.awt.Rectangle;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 
 public abstract class Player implements Renderizable {
 	
 	protected int contador;
-	
+	protected int puntos;
 	protected Flecha arrow;
 	//Barra donde se carga la fuerza con que es lanzada una flecha
 	protected LoadBar barra;
@@ -36,11 +37,10 @@ public abstract class Player implements Renderizable {
 	
 	protected float angulo;
 	
-	
-	
 	enum Estado{REPOSO,ATACANDO,CARGANDOATAQUE,ATACADO}
 	
 	public Player(Image img,int x,int y,Image flechaImg,boolean direccion){
+		puntos = 0;
 		this.img = img;
 		coordinateX = x;
     	coordinateY = y;
@@ -63,6 +63,7 @@ public abstract class Player implements Renderizable {
     
     public void render(GameContainer gc, StateBasedGame stateGame, Graphics g ){
 		img.draw(coordinateX,coordinateY);
+		
     	g.drawString(""+img.getRotation(), 200, 20);	
     	
     	switch(estado){
@@ -166,11 +167,49 @@ public abstract class Player implements Renderizable {
 			return img.getRotation()*-1;
 		}else
 		return img.getRotation();
+	}
+	
+	public Rectangle getBounds(){
+		return new Rectangle((int)coordinateX,(int)coordinateY,img.getWidth(),img.getHeight());
+	} 
+	
+	public Rectangle getArrowBounds(){
+		return arrow.getBounds();
+	}
+	
+	public boolean collision(){
+		return getBounds().intersects(arrow.getBounds());
+	}
+	
+	public void addPunto(){
+		puntos++;
+	}
+	
+	public int getPuntos(){
+		return puntos;
 		
 	}
 	
-
+	public float getX(){
+		return coordinateX;
+	}
 	
-     
+	public float getY(){
+		return coordinateY;
+	}
+	
+	public void setX(float x){
+		this.coordinateX = x;
+	}
+	
+	public void setY(float y)
+	{
+		this.coordinateY = y;
+	}
+	
+	public Flecha getFlecha()
+	{
+		return arrow;
+	}
     
 }
