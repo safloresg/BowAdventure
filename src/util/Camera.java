@@ -1,6 +1,9 @@
-package GUI;
+package util;
+
+import graphicObjects.Player;
 
 import org.newdawn.slick.tiled.TiledMap;
+
 
 public class Camera 
 {
@@ -15,6 +18,7 @@ public class Camera
 
 	public static void translate(Player[] jugador)
 	{
+		
 		if (jugador[1].getX()+jugador[1].getBounds().getWidth() > 640)
 		{
 			jugador[0].getFlecha().setX(-20);
@@ -22,8 +26,6 @@ public class Camera
 			{
 				player.setX(player.getX()-20);
 			}
-			
-			
 		} 
 		/*
 		jugador[1].getFlecha().setX(jugador[1].getArrowBounds().x - 200);
@@ -33,14 +35,21 @@ public class Camera
 		}*/
 	}
 	
+	public static int translateMap (float mapX,boolean derecha)
+	{
+		if (derecha)
+		return (int) (mapX + 20);
+		else 
+			return (int) (mapX - 20);
+
+	}
+	
 	
 
 	public static void translate2(Player[] jugador)
 	{
 		
-		if (jugador[0].getX()-jugador[0].getBounds().getWidth() < 0)
-		{
-
+		
 			jugador[1].getFlecha().setX(+20);
 
 			for(Player player: jugador )
@@ -49,7 +58,7 @@ public class Camera
 			}
 			
 			
-		} 
+		
 		/*
 		jugador[1].getFlecha().setX(jugador[1].getArrowBounds().x - 200);
 		for(Player player: jugador )
@@ -68,4 +77,6 @@ public class Camera
 		}
 		else {return false;}
 	}
+	
+	
 }

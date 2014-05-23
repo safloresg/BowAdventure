@@ -112,7 +112,6 @@ public class Flecha implements Renderizable{
 		if (x <= scrWidth && y <= scrHeight){
 			   calcX();
 			   calcY();	
-			   
 			   tiempo+=.3;
 		   }
 		   else 

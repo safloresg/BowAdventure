@@ -1,4 +1,4 @@
-package GUI;
+package graphicObjects;
 
 import java.awt.Rectangle;
 
@@ -7,6 +7,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.state.StateBasedGame;
+
+import GUI.Flecha;
+import GUI.Renderizable;
 
 
 public abstract class Player implements Renderizable {

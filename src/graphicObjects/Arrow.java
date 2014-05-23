@@ -1,4 +1,4 @@
-package GUI;
+package graphicObjects;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

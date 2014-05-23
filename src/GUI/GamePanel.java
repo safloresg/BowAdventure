@@ -1,5 +1,9 @@
 package GUI;
 
+import graphicObjects.ComputerPlayer;
+import graphicObjects.HumanPlayer;
+import graphicObjects.Player;
+
 import java.io.InputStream;
 
 import javax.swing.JButton;
@@ -12,6 +16,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
+
+import util.Camera;
+
 
 
 
@@ -29,6 +36,8 @@ class GamePanel extends BasicGameState  {
     private int turnosTot;
     //lista de arqueros
 	private Player[] playerList;
+	//posicion  en x del Map
+	private float xMap;
 	
 	enum Turno {turnoJ1,turnoJ2};
     private Turno turn ;
@@ -48,8 +57,9 @@ class GamePanel extends BasicGameState  {
 		turnosTot = 1;
 		hitTarget = false;
 		player1 = new HumanPlayer(new Image("Animaciones/Bowman/arco.png",true),10,310);
-		player2 = new ComputerPlayer(player1.getImg().getFlippedCopy(true,false),800,310);
+		player2 = new ComputerPlayer(player1.getImg().getFlippedCopy(true,false),870,310);
 		playerList = new Player[]{player1,player2};
+		xMap = 0;
 		
 	}
 
@@ -58,7 +68,7 @@ class GamePanel extends BasicGameState  {
 			throws SlickException {
 		g.drawString("Puntaje jugador1: "+player1.getPuntos(), 100, 25);
 		g.drawString("Puntaje jugador2:"+player2.getPuntos(), 300, 25);
-		map.render(0, 0);
+		map.render((int) xMap, 0);
     	player1.render(container, game, g);
     	player2.render(container, game, g);
 	}
@@ -72,47 +82,10 @@ class GamePanel extends BasicGameState  {
 		if ( getTurno() == Turno.turnoJ1 )//si es el turno del jugador 1
 		{
 			ejecutarTurno(player1,container,stateGame);
-			/*
-			player1.update(container, stateGame, delta);
-			if(player1.getFlecha().isThrowed())
-			{
-				Camera.translate(playerList);
-			}
-			if (collision())//si se detecto que el la flecha dio en el blanco hitTarget cambia a true
-				hitTarget = true;
-			if (player1.isMoveMaked())
-			{
-				if(hitTarget)
-				{//si se dio en el blanco el jugador 1 obtiene un punto
-					player1.addPunto();
-					hitTarget = false;
-				}
-				turnosTot ++;
-				player2.init();
-			}*/
 		}
 		else
 		{
 			ejecutarTurno(player2,container,stateGame);
-			
-			/*
-
-			player2.update(container, stateGame, delta);
-			if (collision())// si hubo una collision significa que se dio en el blanco
-				hitTarget = true;
-			if (player2.isMoveMaked())
-			{
-				if (hitTarget)//se se dio en el blanco el jugador 2 obtiene un punto
-				{
-					player2.addPunto();
-					hitTarget = false;
-					
-				}
-				turnosTot ++;
-				player1.init();
-				
-			}*/
-
 		}
 			
 		if (in.isKeyPressed(Input.KEY_ENTER)){
@@ -159,9 +132,27 @@ class GamePanel extends BasicGameState  {
 		if(jugador.getFlecha().isThrowed())
 		{
 			if (jugador instanceof HumanPlayer)
-			Camera.translate(playerList);
+			{
+				if (player2.getX()+jugador.getBounds().getWidth() > 640)
+				{
+
+				xMap = Camera.translateMap(xMap,false);
+				Camera.translate(playerList);
+				}
+			}
 			else
-				Camera.translate2(playerList);
+			{
+				if (player1.getX()-jugador.getBounds().getWidth() < 0)
+				{
+
+					xMap = Camera.translateMap(xMap,true);
+
+					Camera.translate2(playerList);
+
+				}
+			
+				
+			}
 		}
 		if (collision())//si se detecto que el la flecha dio en el blanco hitTarget cambia a true
 			hitTarget = true;
